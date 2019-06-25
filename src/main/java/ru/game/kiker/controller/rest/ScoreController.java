@@ -26,7 +26,6 @@ public class ScoreController {
     @RequestMapping(value = "/goal", method = RequestMethod.GET)
     public ResponseEntity getService() {
         Firestore db = dbConfig.initFirebase();
-
         try {
             DocumentReference docRef = db.collection("items").document("superGOAL");
             Map<String, Object> data = new HashMap<String, Object>();
@@ -42,5 +41,11 @@ public class ScoreController {
         }
 
         return ResponseEntity.ok("goal incremented");
+    }
+
+
+    @RequestMapping(value = "/ping", method = RequestMethod.GET)
+    public ResponseEntity getPing() {
+        return ResponseEntity.ok("PONG!!");
     }
 }

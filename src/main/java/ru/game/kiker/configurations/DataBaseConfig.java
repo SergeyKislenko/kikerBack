@@ -20,7 +20,7 @@ public class DataBaseConfig {
     public Firestore initFirebase() {
         Firestore db = null;
         try {
-            FileInputStream serviceAccount = new FileInputStream("./resources/key.json");
+            FileInputStream serviceAccount = new FileInputStream("key.json");
             FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://kicker-87cff.firebaseio.com")
