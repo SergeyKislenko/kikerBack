@@ -8,6 +8,10 @@
     <artifactId>KikerGame</artifactId>
     <version>1.0</version>
 
+    <properties>
+        <start-class>ru.game.Kiker.Application</start-class>
+    </properties>
+
     <!-- Parent information -->
     <parent>
         <groupId>org.springframework.boot</groupId>
