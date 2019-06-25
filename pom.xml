@@ -9,10 +9,6 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <start-class>ru.game.kiker.Application</start-class>
-    </properties>
-
     <!-- Parent information -->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -36,6 +32,7 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
             <plugin>
@@ -57,9 +54,17 @@
                                     <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
+
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>ru.game.kiker.Application</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
