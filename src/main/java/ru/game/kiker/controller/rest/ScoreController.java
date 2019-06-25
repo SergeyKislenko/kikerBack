@@ -1,4 +1,4 @@
-package ru.game.Kiker.controller.rest;
+package ru.game.kiker.controller.rest;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ru.game.Kiker.configurations.DataBaseConfig;
+import ru.game.kiker.configurations.DataBaseConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class ScoreController {
 
         try {
             DocumentReference docRef = db.collection("items").document("superGOAL");
-            Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<String, Object>();
             data.put("born", "1111");
             data.put("firs", "ZOHN");
             data.put("last", "FUCKл");
