@@ -5,6 +5,7 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,9 @@ public class ScoreController {
 
     @Autowired
     private DataBaseConfig dbConfig;
+
+    @Value("${temp.var}")
+    private String temp;
 
 
     @RequestMapping(value = "/goal", method = RequestMethod.GET)
@@ -46,6 +50,6 @@ public class ScoreController {
 
     @RequestMapping(value = "/ping", method = RequestMethod.GET)
     public ResponseEntity getPing() {
-        return ResponseEntity.ok("PONG!!");
+        return ResponseEntity.ok("PONG!!" + temp);
     }
 }
