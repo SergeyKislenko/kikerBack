@@ -24,7 +24,7 @@ public class ScoreController {
     private DataBaseConfig dbConfig;
 
     @Value("${temp.var}")
-    private String temp;
+    String temp;
 
 
     @RequestMapping(value = "/goal", method = RequestMethod.GET)
