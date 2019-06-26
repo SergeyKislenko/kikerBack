@@ -6,26 +6,27 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.FirebaseDatabase;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.game.kiker.utils.PrepareConfigFile;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Configuration
 public class DataBaseConfig {
+    @Autowired
+    private PrepareConfigFile prepareConfigFile;
 
     @Bean
     public Firestore initFirebase() {
         Firestore db = null;
         try {
-            FileInputStream serviceAccount = new FileInputStream("key.json");
             FirebaseOptions firebaseOptions = new FirebaseOptions.Builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setCredentials(GoogleCredentials.fromStream(prepareConfigFile.prepareConfig()))
                     .setDatabaseUrl("https://kicker-87cff.firebaseio.com")
                     .build();
-
             FirebaseApp.initializeApp(firebaseOptions);
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             db = FirestoreClient.getFirestore();
