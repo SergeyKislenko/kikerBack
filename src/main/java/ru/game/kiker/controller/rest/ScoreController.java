@@ -18,8 +18,9 @@ public class ScoreController {
     @RequestMapping(value = "/goal", method = RequestMethod.POST)
     public ResponseEntity getService(@RequestParam("idTable")Long id,
                                      @RequestParam("firstTeam")Long firstTeam,
-                                     @RequestParam("secondTeam")Long secondTeam) {
-        return ResponseEntity.ok(scoreService.updateScore(id, firstTeam, secondTeam));
+                                     @RequestParam("secondTeam")Long secondTeam,
+                                     @RequestParam("type")String type) {
+        return ResponseEntity.ok(scoreService.updateScore(id, firstTeam, secondTeam, type));
     }
 
 

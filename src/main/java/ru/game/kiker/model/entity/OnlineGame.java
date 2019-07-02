@@ -1,5 +1,6 @@
 package ru.game.kiker.model.entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OnlineGame {
@@ -7,12 +8,22 @@ public class OnlineGame {
     private Team secondTeam;
     private Boolean status;
     private Long idTable;
+    private ArrayList<TimeLine> timeline;
 
-    public OnlineGame(Object firstTeam, Object secondTeam, Boolean status, Long idTable) {
+    public OnlineGame(Object firstTeam, Object secondTeam, Boolean status, Long idTable, Object timeline) {
         this.firstTeam = new Team((HashMap) firstTeam);
         this.secondTeam = new Team((HashMap) secondTeam);
         this.status = status;
         this.idTable = idTable;
+        this.timeline = (ArrayList<TimeLine>) timeline;
+    }
+
+    public ArrayList<TimeLine> getTimeline() {
+        return timeline;
+    }
+
+    public void setTimeline(ArrayList<TimeLine> timeline) {
+        this.timeline = timeline;
     }
 
     public Team getFirstTeam() {
