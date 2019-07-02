@@ -8,22 +8,22 @@ public class OnlineGame {
     private Team secondTeam;
     private Boolean status;
     private Long idTable;
-    private ArrayList<TimeLine> timeline;
+    private ArrayList<TimeLine> timeLine;
 
-    public OnlineGame(Object firstTeam, Object secondTeam, Boolean status, Long idTable, Object timeline) {
+    public OnlineGame(Object firstTeam, Object secondTeam, Boolean status, Long idTable, Object timeLine) {
         this.firstTeam = new Team((HashMap) firstTeam);
         this.secondTeam = new Team((HashMap) secondTeam);
         this.status = status;
         this.idTable = idTable;
-        this.timeline = (ArrayList<TimeLine>) timeline;
+        this.timeLine = (ArrayList<TimeLine>) timeLine;
     }
 
     public ArrayList<TimeLine> getTimeline() {
-        return timeline;
+        return timeLine;
     }
 
-    public void setTimeline(ArrayList<TimeLine> timeline) {
-        this.timeline = timeline;
+    public void setTimeline(ArrayList<TimeLine> timeLine) {
+        this.timeLine = timeLine;
     }
 
     public Team getFirstTeam() {
@@ -65,6 +65,7 @@ public class OnlineGame {
                 ", secondTeam=" + secondTeam +
                 ", status=" + status +
                 ", idTable='" + idTable + '\'' +
+                ", timeLine='" + timeLine + '\'' +
                 '}';
     }
 }

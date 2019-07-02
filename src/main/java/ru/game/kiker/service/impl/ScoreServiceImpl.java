@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static ru.game.kiker.utils.PrepareTimeLine.prepareTimeLine;
+
 @Component
 public class ScoreServiceImpl implements ScoreService {
     @Autowired
@@ -34,7 +36,7 @@ public class ScoreServiceImpl implements ScoreService {
                                 document.get("secondTeam"),
                                 document.getBoolean("status"),
                                 document.getLong("idTable"),
-                                document.get("timeLine"));
+                                document.get("timeline"));
                         return game;
                     }
                 }
@@ -54,11 +56,8 @@ public class ScoreServiceImpl implements ScoreService {
         if (game != null) {
             try {
                 DocumentReference docRef = db.collection("online").document("gameTemp");
-
-                if(game.getTimeline()==null){
-                    ArrayList<TimeLine> timeLine = new ArrayList<>();
-                }
-
+                ArrayList<TimeLine> timeLine = prepareTimeLine(game, firstTeam, secondTeam, type);
+                game.setTimeline(timeLine);
                 game.getFirstTeam().setScore(firstTeam);
                 game.getSecondTeam().setScore(secondTeam);
                 ApiFuture<WriteResult> result = docRef.set(game);

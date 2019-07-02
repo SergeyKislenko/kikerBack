@@ -6,12 +6,12 @@ import org.joda.time.DateTime;
 public class TimeLine {
     private Integer team;
     private Integer status;
-    private DateTime date;
+    private String date;
 
     public TimeLine(Integer team, Integer status) {
         this.team = team;
         this.status = status;
-        this.date = new DateTime();
+        this.date = new DateTime().toString();
     }
 
     public TimeLine prepareTimeLine(){
@@ -34,11 +34,11 @@ public class TimeLine {
         this.status = status;
     }
 
-    public DateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
