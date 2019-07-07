@@ -6,7 +6,7 @@ import ru.game.kiker.model.entity.TimeLine;
 import java.util.ArrayList;
 
 public class PrepareTimeLine {
-    public static ArrayList<TimeLine> prepareTimeLine(OnlineGame game, Long scoreFirst, Long scoreSecond, String type) {
+    public static ArrayList<TimeLine> prepareTimeLine(OnlineGame game, Integer scoreFirst, Integer scoreSecond, String type) {
         ArrayList<TimeLine> timeLine = game.getTimeline() == null ? new ArrayList<TimeLine>() : game.getTimeline();
         Integer status = -1;
         Integer team = -1;
@@ -17,9 +17,9 @@ public class PrepareTimeLine {
             status = 0;
         }
 
-        if (game.getFirstTeam().getScore() != scoreFirst) {
+        if (game.getFirstScore() != scoreFirst) {
             team = 0;
-        } else if (game.getSecondTeam().getScore() != scoreSecond) {
+        } else if (game.getSecondScore() != scoreSecond) {
             team = 1;
         }
 

@@ -1,18 +1,17 @@
 package ru.game.kiker.model.entity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class OnlineGame {
-    private Team firstTeam;
-    private Team secondTeam;
+    private Integer firstScore;
+    private Integer secondScore;
     private Boolean status;
     private Long idTable;
     private ArrayList<TimeLine> timeLine;
 
-    public OnlineGame(Object firstTeam, Object secondTeam, Boolean status, Long idTable, Object timeLine) {
-        this.firstTeam = new Team((HashMap) firstTeam);
-        this.secondTeam = new Team((HashMap) secondTeam);
+    public OnlineGame(Object firstScore, Object secondScore, Boolean status, Long idTable, Object timeLine) {
+        this.firstScore = (Integer) firstScore;
+        this.secondScore = (Integer) secondScore;
         this.status = status;
         this.idTable = idTable;
         this.timeLine = (ArrayList<TimeLine>) timeLine;
@@ -26,20 +25,29 @@ public class OnlineGame {
         this.timeLine = timeLine;
     }
 
-    public Team getFirstTeam() {
-        return firstTeam;
+
+    public Integer getFirstScore() {
+        return firstScore;
     }
 
-    public void setFirstTeam(Team firstTeam) {
-        this.firstTeam = firstTeam;
+    public void setFirstScore(Integer firstScore) {
+        this.firstScore = firstScore;
     }
 
-    public Team getSecondTeam() {
-        return secondTeam;
+    public Integer getSecondScore() {
+        return secondScore;
     }
 
-    public void setSecondTeam(Team secondTeam) {
-        this.secondTeam = secondTeam;
+    public void setSecondScore(Integer secondScore) {
+        this.secondScore = secondScore;
+    }
+
+    public ArrayList<TimeLine> getTimeLine() {
+        return timeLine;
+    }
+
+    public void setTimeLine(ArrayList<TimeLine> timeLine) {
+        this.timeLine = timeLine;
     }
 
     public Boolean getStatus() {
@@ -61,8 +69,8 @@ public class OnlineGame {
     @Override
     public String toString() {
         return "OnlineGame{" +
-                "firstTeam=" + firstTeam +
-                ", secondTeam=" + secondTeam +
+                "firstScore=" + firstScore +
+                ", secondScore=" + secondScore +
                 ", status=" + status +
                 ", idTable='" + idTable + '\'' +
                 ", timeLine='" + timeLine + '\'' +

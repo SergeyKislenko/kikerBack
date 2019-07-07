@@ -32,8 +32,8 @@ public class ScoreServiceImpl implements ScoreService {
             for (QueryDocumentSnapshot document : documents) {
                 if (document.getLong("idTable") != null) {
                     if (document.getLong("idTable").equals(id)) {
-                        OnlineGame game = new OnlineGame(document.get("firstTeam"),
-                                document.get("secondTeam"),
+                        OnlineGame game = new OnlineGame(document.get("firstScore"),
+                                document.get("secondScore"),
                                 document.getBoolean("status"),
                                 document.getLong("idTable"),
                                 document.get("timeline"));
@@ -50,7 +50,7 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Boolean updateScore(Long id, Long firstTeam, Long secondTeam, String type) {
+    public Boolean updateScore(Long id, Integer firstTeam, Integer secondTeam, String type) {
         Firestore db = dbConfig.initFirebase();
         OnlineGame game = findOnlineGameById(id);
         if (game != null) {
@@ -58,8 +58,8 @@ public class ScoreServiceImpl implements ScoreService {
                 DocumentReference docRef = db.collection("online").document("gameTemp");
                 ArrayList<TimeLine> timeLine = prepareTimeLine(game, firstTeam, secondTeam, type);
                 game.setTimeline(timeLine);
-                game.getFirstTeam().setScore(firstTeam);
-                game.getSecondTeam().setScore(secondTeam);
+                game.setFirstScore(firstTeam);
+                game.setSecondScore(secondTeam);
                 ApiFuture<WriteResult> result = docRef.set(game);
                 System.out.println("Update time : " + result.get().getUpdateTime());
                 return true;
