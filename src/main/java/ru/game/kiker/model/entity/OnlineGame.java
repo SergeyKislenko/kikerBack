@@ -10,8 +10,8 @@ public class OnlineGame {
     private ArrayList<TimeLine> timeLine;
 
     public OnlineGame(Object firstScore, Object secondScore, Boolean status, Long idTable, Object timeLine) {
-        this.firstScore = (Integer) firstScore;
-        this.secondScore = (Integer) secondScore;
+        this.firstScore = ((Long) firstScore).intValue();
+        this.secondScore = ((Long)secondScore).intValue();
         this.status = status;
         this.idTable = idTable;
         this.timeLine = (ArrayList<TimeLine>) timeLine;
@@ -42,13 +42,6 @@ public class OnlineGame {
         this.secondScore = secondScore;
     }
 
-    public ArrayList<TimeLine> getTimeLine() {
-        return timeLine;
-    }
-
-    public void setTimeLine(ArrayList<TimeLine> timeLine) {
-        this.timeLine = timeLine;
-    }
 
     public Boolean getStatus() {
         return status;
