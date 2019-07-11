@@ -5,11 +5,11 @@ import com.google.cloud.firestore.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.game.kiker.configurations.DataBaseConfig;
+import ru.game.kiker.exceptions.GameServiceException;
 import ru.game.kiker.model.entity.OnlineGame;
 import ru.game.kiker.model.entity.TimeLine;
 import ru.game.kiker.service.ScoreService;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -26,25 +26,23 @@ public class ScoreServiceImpl implements ScoreService {
     public OnlineGame findOnlineGameById(Long id) {
         Firestore db = dbConfig.initFirebase();
         try {
-            ApiFuture<QuerySnapshot> query = db.collection("online").get();
-            QuerySnapshot querySnapshot = query.get();
-            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
-            for (QueryDocumentSnapshot document : documents) {
-                if (document.getLong("idTable") != null) {
-                    if (document.getLong("idTable").equals(id)) {
-                        OnlineGame game = new OnlineGame(document.get("firstScore"),
-                                document.get("secondScore"),
-                                document.getBoolean("status"),
-                                document.getLong("idTable"),
-                                document.get("timeline"));
-                        return game;
-                    }
-                }
+            Query temp = db.collection("online").whereEqualTo("idTable", id);
+            ApiFuture<QuerySnapshot> querySnapshot = temp.get();
+            QueryDocumentSnapshot document = querySnapshot.get().getDocuments().get(0);
+            if (document.exists()) {
+                OnlineGame game = new OnlineGame(document.get("firstScore"),
+                        document.get("secondScore"),
+                        document.getBoolean("status"),
+                        document.getLong("idTable"),
+                        document.get("timeline"));
+                return game;
+            } else {
+                throw new GameServiceException("Table with id " + id + " doesn`t exist");
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        } catch (ExecutionException e1) {
+            e1.printStackTrace();
         }
         return null;
     }
