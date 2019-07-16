@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.game.kiker.service.GameService;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("${kiker.route.game}")
 
@@ -20,7 +18,11 @@ public class GameController {
 
     @RequestMapping(value = "/scoreActiveGame", method = RequestMethod.GET)
     public ResponseEntity getScore(@RequestParam("idTable") Long idTable) {
-        Map score = gameService.scoreActiveGame(idTable);
-        return ResponseEntity.ok(score);
+        return ResponseEntity.ok(gameService.scoreActiveGame(idTable));
+    }
+
+    @RequestMapping(value = "/sendGameToHistory", method = RequestMethod.POST)
+    public ResponseEntity sendGameToHistory(@RequestParam("idTable") Long idTable) {
+        return ResponseEntity.ok(gameService.sendGameToHistory(idTable));
     }
 }

@@ -9,12 +9,26 @@ public class OnlineGame {
     private Long idTable;
     private ArrayList<TimeLine> timeLine;
 
+    public OnlineGame() {
+
+    }
+
     public OnlineGame(Object firstScore, Object secondScore, Boolean status, Long idTable, Object timeLine) {
         this.firstScore = ((Long) firstScore).intValue();
-        this.secondScore = ((Long)secondScore).intValue();
+        this.secondScore = ((Long) secondScore).intValue();
         this.status = status;
         this.idTable = idTable;
         this.timeLine = (ArrayList<TimeLine>) timeLine;
+    }
+
+    public OnlineGame createEmptyGame(Long idTable) {
+        OnlineGame og = new OnlineGame();
+        og.setFirstScore(0);
+        og.setSecondScore(0);
+        og.setStatus(false);
+        og.setIdTable(idTable);
+        og.setTimeline(null);
+        return og;
     }
 
     public ArrayList<TimeLine> getTimeline() {
