@@ -8,17 +8,21 @@ public class OnlineGame {
     private Boolean status;
     private Long idTable;
     private ArrayList<TimeLine> timeLine;
+    private ArrayList<String> firstTeam;
+    private ArrayList<String> secondTeam;
 
     public OnlineGame() {
 
     }
 
-    public OnlineGame(Object firstScore, Object secondScore, Boolean status, Long idTable, Object timeLine) {
+    public OnlineGame(Object firstScore, Object secondScore, Boolean status, Long idTable, Object timeLine, Object firstTeam, Object secondTeam) {
         this.firstScore = ((Long) firstScore).intValue();
         this.secondScore = ((Long) secondScore).intValue();
         this.status = status;
         this.idTable = idTable;
         this.timeLine = (ArrayList<TimeLine>) timeLine;
+        this.firstTeam = (ArrayList<String>) firstTeam;
+        this.secondTeam = (ArrayList<String>) secondTeam;
     }
 
     public OnlineGame createEmptyGame(Long idTable) {
@@ -28,7 +32,25 @@ public class OnlineGame {
         og.setStatus(false);
         og.setIdTable(idTable);
         og.setTimeline(null);
+        og.setFirstTeam(null);
+        og.setSecondTeam(null);
         return og;
+    }
+
+    public ArrayList<String> getFirstTeam() {
+        return firstTeam;
+    }
+
+    public void setFirstTeam(ArrayList<String> firstTeam) {
+        this.firstTeam = firstTeam;
+    }
+
+    public ArrayList<String> getSecondTeam() {
+        return secondTeam;
+    }
+
+    public void setSecondTeam(ArrayList<String> secondTeam) {
+        this.secondTeam = secondTeam;
     }
 
     public ArrayList<TimeLine> getTimeline() {

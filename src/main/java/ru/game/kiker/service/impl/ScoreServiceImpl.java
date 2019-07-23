@@ -49,7 +49,9 @@ public class ScoreServiceImpl implements ScoreService {
                     document.get("secondScore"),
                     document.getBoolean("status"),
                     document.getLong("idTable"),
-                    document.get("timeline"));
+                    document.get("timeline"),
+                    document.get("firstTeam"),
+                    document.get("secondTeam"));
             return game;
         } else {
             throw new GameServiceException("Table with id " + id + " doesn`t exist");

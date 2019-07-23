@@ -11,6 +11,7 @@ import ru.game.kiker.exceptions.GameServiceException;
 import ru.game.kiker.model.entity.OnlineGame;
 import ru.game.kiker.service.GameService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -22,6 +23,9 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     private DataBaseConfig dbConfig;
+
+    final private Long WIN_POINTS = 3L;
+    final private Long MIDL_POINTS = 1L;
 
     @Override
     public Map scoreActiveGame(Long idTable) {
@@ -60,13 +64,22 @@ public class GameServiceImpl implements GameService {
             if (!querySnapshot.get().getDocuments().isEmpty()) {
                 QueryDocumentSnapshot document = querySnapshot.get().getDocuments().get(0);
                 DocumentReference historyGames = db.collection("historyGames").document(document.getId());
-
                 ApiFuture<WriteResult> result = historyGames.set(document.getData());
                 logger.info("Game sended " + document.getId() + " to history in" + result.get().getUpdateTime());
+
+                if (document.getLong("firstScore") > document.getLong("secondScore")) {
+                    updateScoreTeam("firstTeam", document, WIN_POINTS);
+                } else if (document.getLong("firstScore") < document.getLong("secondScore")) {
+                    updateScoreTeam("secondTeam", document, WIN_POINTS);
+                } else if (document.getLong("firstScore") == document.getLong("secondScore")) {
+                    updateScoreTeam("firstTeam", document, MIDL_POINTS);
+                    updateScoreTeam("secondTeam", document, MIDL_POINTS);
+                }
+
                 db.collection("online").document(document.getId()).delete();
                 logger.info("Game " + document.getId() + " deleted in" + result.get().getUpdateTime());
                 db.collection("online").document().set(new OnlineGame().createEmptyGame(idTable));
-                return false;
+                return true;
             } else {
                 throw new GameServiceException("Table with id " + idTable + " doesn`t exist");
             }
@@ -77,4 +90,34 @@ public class GameServiceImpl implements GameService {
         }
         return false;
     }
+
+    @Override
+    public boolean updateScoreTeam(String name, QueryDocumentSnapshot document, Long point) {
+        Firestore db = dbConfig.initFirebase();
+        ArrayList<String> list = (ArrayList<String>) document.get(name);
+        if(document.get(name) != null){
+            for (String player : list) {
+                try {
+                    DocumentReference p = db.collection("top").document(player);
+                    if (p.get().get().getLong("score") != null) {
+                        Long score = p.get().get().getLong("score") + point;
+                        Map<String, Object> val = p.get().get().getData();
+                        val.put("score", score);
+                        p.set(val);
+                        logger.info(point + " point for player " + player);
+                        return true;
+                    } else {
+                        throw new GameServiceException("User with id " + player + " doesn`t exist");
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+
+
 }
